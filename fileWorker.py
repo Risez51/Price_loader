@@ -22,6 +22,12 @@ class FileReader:
         dom.normalize()
         return dom
 
+    def get_download_excel_file_numpy(self, file_url):
+        my_file = urllib.request.urlopen(file_url)
+        file_data = my_file.read()
+        df_numpy = pd.ExcelFile(file_data).parse(sheet_name=self.sheet, encoding_override='CORRECT_ENCODING').to_numpy()
+        return df_numpy
+
     def get_data_list(self, file_path):
         return self.get_list_from_excel(file_path) if ".xl" in file_path else self.get_list_from_csv(file_path)
 

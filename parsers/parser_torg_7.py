@@ -23,12 +23,17 @@ class Parser_torg_7:
                             result_item.article = node.firstChild.data
                     elif node.tagName == 'title':
                         if node.firstChild:
-                            result_item.name = node.firstChild.data
-                            result_item.site_name = result_item.name
+                            if 'крин' in node.firstChild.data.lower():
+                                result_item = None
+                                print(node.firstChild.data)
+                                break
+                            else:
+                                result_item.name = node.firstChild.data
+                                result_item.site_name = result_item.name
                     elif node.tagName == 'price':
                         if node.firstChild:
-                            result_item.purchase_price = float(node.firstChild.data) / 1.2
-                            result_item.selling_price = result_item.purchase_price * 1.35
+                            result_item.purchase_price = round(float(node.firstChild.data) / 1.2, 2)
+                            result_item.selling_price = round(result_item.purchase_price * 1.35, 2)
                             result_item.purchase_price = str(result_item.purchase_price).replace('.', ',')
                             result_item.selling_price = str(result_item.selling_price).replace('.', ',')
                     elif node.tagName == 'unit':
@@ -37,6 +42,6 @@ class Parser_torg_7:
                     elif node.tagName == 'free':
                         if node.firstChild:
                             result_item.quantity = node.firstChild.data
-
-            result_list.append(result_item.to_dict())
+            if result_item:
+                result_list.append(result_item.to_dict())
         return result_list
