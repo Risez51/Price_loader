@@ -4,10 +4,12 @@ import fileWorker
 
 class Parser_torg_7:
     def __init__(self):
+        print('Торг_7_ЧК - старт обработки.')
         self.url_xml_file = 'http://www.inpo.ru/documents/pricelists/pricelist.xml'
 
     def parse(self):
         file_reader = fileWorker.FileReader()
+        print(f'Парсинг файла поставщика Торг_7_ЧК')
         xml_file = file_reader.get_xml_file(self.url_xml_file)
         return self.get_result_list_from_xml(xml_file)
 
@@ -25,7 +27,6 @@ class Parser_torg_7:
                         if node.firstChild:
                             if 'крин' in node.firstChild.data.lower():
                                 result_item = None
-                                print(node.firstChild.data)
                                 break
                             else:
                                 result_item.name = node.firstChild.data
@@ -34,8 +35,6 @@ class Parser_torg_7:
                         if node.firstChild:
                             result_item.purchase_price = round(float(node.firstChild.data) / 1.2, 2)
                             result_item.selling_price = round(result_item.purchase_price * 1.35, 2)
-                            result_item.purchase_price = str(result_item.purchase_price).replace('.', ',')
-                            result_item.selling_price = str(result_item.selling_price).replace('.', ',')
                     elif node.tagName == 'unit':
                         if node.firstChild:
                             result_item.unit = node.firstChild.data
@@ -44,4 +43,5 @@ class Parser_torg_7:
                             result_item.quantity = node.firstChild.data
             if result_item:
                 result_list.append(result_item.to_dict())
+        print(f'Поставщик: Торг_7_ЧК, найдено: {len(result_list)} ')
         return result_list
