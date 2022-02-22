@@ -1,3 +1,5 @@
+import os
+
 import pandas as pd
 import datetime
 from xml.dom import minidom
@@ -46,9 +48,22 @@ class FileWriter:
 
     def to_excel(self, my_data):
         file_name = self.create_file_name()
-        pd.DataFrame(data=my_data).to_excel(file_name, index=False, encoding='cp1251')
+        pd.DataFrame(data=my_data).to_excel(file_name, index=False)
+        file_chk_name = file_name.replace('xlsx', 'chk')
+        os.rename(file_name, file_chk_name)
         print(f'Поставщик {self.supplier_name}: обработан, создан результирующий файл: {file_name}')
+
 
     def create_file_name(self):
         my_date = datetime.datetime.now()
-        return f'./{self.supplier_name} (от {my_date.day}-{my_date.month}-{my_date.year}) (в {my_date.hour}-{my_date.minute}).xlsx'
+        folder_name = my_date.strftime('%d.%m.%y')
+        return f'C:\\Users\\OperTech\\Desktop\\выгрузка\\{folder_name}\\{self.supplier_name} (от {my_date.day}-{my_date.month}-{my_date.year}) (в {my_date.hour}-{my_date.minute}).xlsx'
+
+    def check_folder(self):
+        my_date = datetime.datetime.today().strftime('%d.%m.%y')
+        if not os.path.exists(f'C:\\Users\\OperTech\\Desktop\\выгрузка\\{my_date}'):
+            print('Папка создана')
+            os.makedirs(f'C:\\Users\\OperTech\\Desktop\\выгрузка\\{my_date}')
+        else:
+            print('Папка уже существует')
+

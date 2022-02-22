@@ -4,7 +4,7 @@ import fileWorker
 
 class Parser_torg_7:
     def __init__(self):
-        print('Торг_7_ЧК - старт обработки.')
+        print('\nТорг_7_ЧК - старт обработки.')
         self.url_xml_file = 'http://www.inpo.ru/documents/pricelists/pricelist.xml'
 
     def parse(self):

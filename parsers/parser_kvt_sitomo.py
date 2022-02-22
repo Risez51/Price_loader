@@ -6,7 +6,7 @@ import pandas as pd
 
 class Parser_kvt_sitomo:
     def __init__(self):
-        print('КВТ_СИТ - старт обработки.')
+        print('\nКВТ_СИТ - старт обработки.')
         self.file_name = datetime.datetime.today().strftime('%d-%m-%y') + '.xlsx'
         self.url = f'https://kvt.tools/price/storereports/kvt.store-status_{self.file_name}'
 
@@ -25,8 +25,8 @@ class Parser_kvt_sitomo:
                 result_item.name = item[2]
                 result_item.unit = item[3]
                 result_item.quantity = item[4] if not pd.isnull(item[4]) else 0
-                result_item.purchase_price = float(item[5]) / 1.2
-                result_item.selling_price = result_item.purchase_price
+                result_item.purchase_price = round(float(item[5]) / 1.2, 2)
+                result_item.selling_price = round(result_item.purchase_price, 2)
                 result_item.site_name = result_item.name
             if result_item.article != '':
                 result_list.append(result_item.to_dict())
