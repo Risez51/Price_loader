@@ -47,7 +47,6 @@ class FileWriter:
         self.supplier_name = supplier_name
 
     def to_excel(self, my_data):
-        self.check_folder()
         file_name = self.create_file_name()
         pd.DataFrame(data=my_data).to_excel(file_name, index=False)
         file_chk_name = file_name.replace('xlsx', 'chk')

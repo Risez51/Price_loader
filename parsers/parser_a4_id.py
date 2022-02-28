@@ -4,6 +4,7 @@ import fileWorker
 
 class Parser_a4_id:
     def __init__(self):
+        print('\nА4_ИД - старт обработки.')
         self.url_xml_file = 'https://aet-auto.ru/files/storage/price.xml'
 
     def parse(self):
