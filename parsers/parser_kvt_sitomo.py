@@ -1,6 +1,5 @@
 import datetime
-import fileWorker
-import resultItem
+import fileWorker, resultItem, spotter
 import pandas as pd
 
 
@@ -24,8 +23,8 @@ class Parser_kvt_sitomo:
                 result_item.article = item[0]
                 result_item.name = item[2]
                 result_item.unit = item[3]
-                result_item.quantity = item[4] if not pd.isnull(item[4]) else 0
-                result_item.purchase_price = round(float(item[5]) / 1.2, 2)
+                result_item.quantity = spotter.Spotter().get_balance_adjustment_stock(item[4]) if not pd.isnull(item[4]) else 0
+                result_item.purchase_price = round(float(item[5]) / spotter.Spotter().nds, 2)
                 result_item.selling_price = round(result_item.purchase_price, 2)
                 result_item.site_name = result_item.name
             if result_item.article != '':

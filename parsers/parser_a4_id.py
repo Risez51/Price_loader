@@ -1,5 +1,4 @@
-import resultItem
-import fileWorker
+import resultItem, fileWorker, spotter
 
 
 class Parser_a4_id:
@@ -36,14 +35,14 @@ class Parser_a4_id:
                                 result_item.site_name = result_item.name
                     elif node.tagName == 'price-dealer':
                         if node.firstChild:
-                            result_item.purchase_price = float(node.firstChild.data) / 1.2
+                            result_item.purchase_price = float(node.firstChild.data) / spotter.Spotter().nds
                             result_item.selling_price = float(result_item.purchase_price) * 1.4
                     elif node.tagName == 'gk_balance_available':
                         if node.firstChild:
                             if node.firstChild.data == '[[+tv_gk_balance_available]]':
                                 result_item.quantity = 0
                             else:
-                                result_item.quantity = node.firstChild.data
+                                result_item.quantity = spotter.Spotter().get_balance_adjustment_stock(node.firstChild.data)
             if result_item:
                 result_list.append(result_item.to_dict())
         return result_list

@@ -1,5 +1,4 @@
-import resultItem
-import fileWorker
+import resultItem, fileWorker, spotter
 
 
 class Parser_torg_7:
@@ -33,14 +32,14 @@ class Parser_torg_7:
                                 result_item.site_name = result_item.name
                     elif node.tagName == 'price':
                         if node.firstChild:
-                            result_item.purchase_price = round(float(node.firstChild.data) / 1.2, 2)
+                            result_item.purchase_price = round(float(node.firstChild.data) / spotter.Spotter().nds, 2)
                             result_item.selling_price = round(result_item.purchase_price * 1.35, 2)
                     elif node.tagName == 'unit':
                         if node.firstChild:
                             result_item.unit = node.firstChild.data
                     elif node.tagName == 'free':
                         if node.firstChild:
-                            result_item.quantity = node.firstChild.data
+                            result_item.quantity = spotter.Spotter().get_balance_adjustment_stock(node.firstChild.data)
             if result_item:
                 result_list.append(result_item.to_dict())
         print(f'Поставщик: Торг_7_ЧК, найдено: {len(result_list)} ')

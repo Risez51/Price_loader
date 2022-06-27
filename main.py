@@ -13,5 +13,6 @@ def main():
     fileWorker.FileWriter(0, 'А4_ИД').to_excel(a4_result)
     input('Для выхода введите любой символ: ')
 
+
 if __name__ == '__main__':
     main()
