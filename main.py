@@ -7,7 +7,7 @@ import fileWorker
 
 def main():
     main_test()
-    #print(123)
+
 
 def main_test():
     fileWorker.FileWriter().check_folder()
@@ -18,12 +18,11 @@ def main_test():
     a4_result = parser_a4_id.Parser_a4_id().parse()
     fileWorker.FileWriter(0, 'А4_ИД').to_excel(a4_result)
     input('Для выхода введите любой символ: ')
-
-def parse_m2():
-    #fileWorker.FileWriter().check_folder()
     m2_result = parser_m2.Parser_m2_id().parse()
     fileWorker.FileWriter(0, 'М2_ИД').to_excel(m2_result)
 
+
+
 if __name__ == '__main__':
-    parse_m2()
+    main()
 
