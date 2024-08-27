@@ -17,9 +17,9 @@ def main_test():
     fileWorker.FileWriter(0, 'КВТ_СИТ').to_excel(kvt_sitomo_result)
     a4_result = parser_a4_id.Parser_a4_id().parse()
     fileWorker.FileWriter(0, 'А4_ИД').to_excel(a4_result)
-    input('Для выхода введите любой символ: ')
     m2_result = parser_m2.Parser_m2_id().parse()
     fileWorker.FileWriter(0, 'М2_ИД').to_excel(m2_result)
+    input('Для выхода введите любой символ: ')
 
 
 
